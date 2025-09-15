@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[47,)"
+loaderVersion="[40,)"
 license="GNU General Public License version 3 (GPLv3)"
 
 [[mods]]
@@ -10,12 +10,14 @@ credits="zsvan"
 displayURL="https://discord.gg/Gg6hMm3UcG"
 logoFile="logo.png"
 authors="zsvan"
-description="Pull arrows from your body."
+description='''
+Pull arrows from your body.
+'''
 
 [[dependencies.yio]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.20.1]"
+    versionRange="[1.18.2]"
     ordering="NONE"
     side="BOTH"
 

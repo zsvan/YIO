@@ -1,3 +1,17 @@
+/**
+ * The code of this mod element is always locked.
+ *
+ * You can register new events in this class too.
+ *
+ * If you want to make a plain independent class, create it using
+ * Project Browser -> New... and make sure to make the class
+ * outside net.yio as this package is managed by MCreator.
+ *
+ * If you change workspace package, modid or prefix, you will need
+ * to manually adapt this file to these changes or remake it.
+ *
+ * This class will be added in the mod root package.
+*/
 package net.yio;
 
 import net.minecraftforge.network.NetworkEvent;
@@ -42,7 +56,7 @@ public class RightClickEmptyPacket {
 	}
 
 	public static void handleRightClickEmpty(Player player, InteractionHand hand) {
-		if (!player.level().hasChunkAt(player.blockPosition())) {
+		if (!player.level.hasChunkAt(player.blockPosition())) {
 			return;
 		}
 		int arrowCount = ((LivingEntity) player).getArrowCount();
@@ -55,6 +69,7 @@ public class RightClickEmptyPacket {
 
 	@SubscribeEvent
 	public static void registerMessage(FMLCommonSetupEvent event) {
-		YioMod.addNetworkMessage(RightClickEmptyPacket.class, RightClickEmptyPacket::buffer, RightClickEmptyPacket::new, RightClickEmptyPacket::handler);
+		YioMod.addNetworkMessage(RightClickEmptyPacket.class, RightClickEmptyPacket::buffer, RightClickEmptyPacket::new,
+				RightClickEmptyPacket::handler);
 	}
 }
