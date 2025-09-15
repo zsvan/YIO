@@ -1,7 +1,7 @@
 # YIO - Yank It Out
 
 <div align="center">
-  <img src="logo.png" alt="YIO Logo" width="200"/>
+  <img src="src/main/resources/logo.png" alt="YIO Logo" width="200"/>
 </div>
 
 ---
