@@ -1,6 +1,11 @@
 # IDE files
 .idea/
 
+# Eclipse files
+.project
+.classpath
+.settings/
+
 # Test projects
 leavestest/
 
