@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+credits="zsvan"
+displayURL="https://discord.gg/BkBcrMCpzw"
+logoFile="logo.png"
+authors="${mod_authors}"
+description="${mod_description}"
+
+[[dependencies.yio]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neo_version_range}"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.yio]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="AFTER"
+    side="BOTH"

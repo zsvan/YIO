@@ -1,0 +1,25 @@
+# IDE files
+.idea/
+
+# Test projects
+leavestest/
+
+# Build artifacts
+build/
+*.jar
+!gradle-wrapper.jar
+
+# Gradle files
+.gradle/
+
+# Runtime directories
+run/
+runs/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db

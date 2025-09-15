@@ -1,0 +1,5 @@
+{
+  "death.attack.arrow_yanking": "%1$s yanked an arrow out too violently",
+  "death.attack.arrow_yanking.player": "%1$s was killed by %2$s while yanking arrows recklessly",
+  "yio.arrow.crumbled": "The arrow crumbled as you tried to pull it out..."
+}
