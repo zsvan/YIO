@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[36,)"
 license="GNU General Public License version 3 (GPLv3)"
 
 [[mods]]
@@ -17,7 +17,7 @@ Pull arrows from your body.
 [[dependencies.yio]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.2]"
+    versionRange="[1.16.5]"
     ordering="NONE"
     side="BOTH"
 

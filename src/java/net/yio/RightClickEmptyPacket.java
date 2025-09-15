@@ -1,48 +1,36 @@
-/**
- * The code of this mod element is always locked.
- *
- * You can register new events in this class too.
- *
- * If you want to make a plain independent class, create it using
- * Project Browser -> New... and make sure to make the class
- * outside net.yio as this package is managed by MCreator.
- *
- * If you change workspace package, modid or prefix, you will need
- * to manually adapt this file to these changes or remake it.
- *
- * This class will be added in the mod root package.
-*/
 package net.yio;
 
-import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.Hand;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.item.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.LivingEntity;
 
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RightClickEmptyPacket {
-	private InteractionHand hand;
+	private Hand hand;
 
-	public RightClickEmptyPacket(InteractionHand hand) {
+	public RightClickEmptyPacket(Hand hand) {
 		this.hand = hand;
 	}
 
-	public RightClickEmptyPacket(FriendlyByteBuf buffer) {
-		this.hand = buffer.readEnum(InteractionHand.class);
+	public RightClickEmptyPacket(PacketBuffer buf) {
+		this.hand = buf.readEnumValue(Hand.class);
 	}
 
-	public static void buffer(RightClickEmptyPacket message, FriendlyByteBuf buf) {
-		buf.writeEnum(message.hand);
+	public static void buf(RightClickEmptyPacket message, PacketBuffer buf) {
+		buf.writeEnumValue(message.hand);
 	}
 
 	public static void handler(RightClickEmptyPacket message, Supplier<NetworkEvent.Context> contextSupplier) {
@@ -55,21 +43,27 @@ public class RightClickEmptyPacket {
 		context.setPacketHandled(true);
 	}
 
-	public static void handleRightClickEmpty(Player player, InteractionHand hand) {
-		if (!player.level.hasChunkAt(player.blockPosition())) {
+	public static void handleRightClickEmpty(PlayerEntity player, Hand hand) {
+		//System.out.println("pong");
+		World world = player.world;
+		double x = player.getPosX();
+		double y = player.getPosY();
+		double z = player.getPosZ();
+		if (!world.isBlockLoaded(new BlockPos(x, y, z))) {
 			return;
 		}
-		int arrowCount = ((LivingEntity) player).getArrowCount();
+		int arrowCount = ((LivingEntity) player).getArrowCountInEntity();
 		if (arrowCount > 0) {
-			player.swing(InteractionHand.MAIN_HAND, true);
-			((LivingEntity) player).setArrowCount(arrowCount - 1);
+			player.swing(Hand.MAIN_HAND, true);
+			((LivingEntity) player).setArrowCountInEntity(arrowCount - 1);
 			ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(Items.ARROW, 1));
 		}
 	}
 
 	@SubscribeEvent
 	public static void registerMessage(FMLCommonSetupEvent event) {
-		YioMod.addNetworkMessage(RightClickEmptyPacket.class, RightClickEmptyPacket::buffer, RightClickEmptyPacket::new,
+		YioModElements yioModElements = new YioModElements();
+		yioModElements.addNetworkMessage(RightClickEmptyPacket.class, RightClickEmptyPacket::buf, RightClickEmptyPacket::new,
 				RightClickEmptyPacket::handler);
 	}
 }
