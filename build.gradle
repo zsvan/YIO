@@ -1,5 +1,0 @@
-// Legacy Forge 1.18.2 build configuration
-
-
-    id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '5.1.+'
